@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <img src="#" />
+    <input id=searchbar type='text'>
+    <button>find</button>
+    <script>
+        var newImage = (imageName) => {
+        const img = document.querySelector('img');
+        fetch('https://api.giphy.com/v1/gifs/translate?api_key=QWKASV8ofKfm5yoRd2ozW0bjatLKEP6H&s='+imageName, {mode: 'cors'})
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(response) {
+                img.src = response.data.images.original.url;
+            })
+            .catch(e => {
+                console.log(e)
+            });
+        }
+        newImage("cats");
+        const butt = document.querySelector('button');
+        butt.addEventListener('click', () => {searchImage()});
+        var searchImage = () => {
+            const bar = document.querySelector("#searchbar");
+            var searchStuff = bar.value;
+            bar.value = "";
+            newImage(searchStuff);
+        }
+    </script>
+</body>
+</html>
